@@ -22,11 +22,16 @@
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "ftp-srv": "^4.6.2",
+    "glob": "^8.0.3",
     "helmet": "^6.0.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.37",
+    "mongoose": "^6.6.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.8.3"
   },
   "devDependencies": {
+    "@types/glob": "^8.0.0",
     "concurrently": "^7.4.0",
     "nodemon": "^2.0.19"
   }

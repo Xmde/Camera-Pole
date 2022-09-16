@@ -1,39 +1,19 @@
-import express, { Express, Request, Response } from "express";
-import bodyParser from "body-parser";
-import helmet from "helmet";
 import dotenv from "dotenv";
+import EventEmitter from "events";
+import { exit } from "process";
+import { Database } from "./database/Database";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
-const app: Express = express();
+if (!process.env.MONGOURI) exit(1);
 
-app.use(helmet());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+export const globalEvent = new EventEmitter();
+export const db = new Database(process.env.MONGOURI);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("<h1>Hello from the TypeScript world!</h1>");
-});
+async function main() {
+  await db.init();
+  (await import('./ftp')).default();
+  (await import('./subscribers/file-upload')).default();
+}
 
-app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
-
-// Quick start, create an active ftp server.
-// const FtpSrv = require("ftp-srv");
-
-// const port = 21;
-// const ftpServer = new FtpSrv({
-//   url: "ftps://0.0.0.0:" + port,
-//   anonymous: true,
-// });
-
-// ftpServer.on("login", ({ connection, username, password }, resolve, reject) => {
-//   if (username === "anonymous" && password === "@anonymous") {
-//     return resolve({ root: "/" });
-//   }
-//   return reject(new Error("Invalid username or password"));
-// });
-
-// ftpServer.listen().then(() => {
-//   console.log("Ftp server is starting...");
-// });
+main();
