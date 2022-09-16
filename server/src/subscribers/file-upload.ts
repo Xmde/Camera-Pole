@@ -24,7 +24,7 @@ export default () => {
         const date = moment(
 			time.slice(0, -3),
 			'YYYYMMDDHHmmss'
-		).utcOffset(8);
+		).add(8, 'hours');
 
         console.log(plate, date);
 
