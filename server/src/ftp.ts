@@ -9,7 +9,9 @@ const pass = process.env.FTPPASS || 'defaultPassword';
 export default () => {
     const ftpServer = new FtpSrv({
         url: "ftp://0.0.0.0:" + port,
-        pasv_url: ip
+        pasv_url: ip,
+        pasv_min: 50000,
+        pasv_max: 60000
       });
 
 
