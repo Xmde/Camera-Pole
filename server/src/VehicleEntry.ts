@@ -18,7 +18,7 @@ export class VehicleEntry {
             return;
         }
         const plate = entry.plate;
-        if (!this.vehicleEntries.has(plate)) this.vehicleEntries.set(plate, new VehicleEntry(plate, entry.timestamp, entry.directionAbsolute));
+        if (!this.vehicleEntries.has(plate)) this.vehicleEntries.set(plate, new VehicleEntry(plate, entry.timestamp, entry.dirAbsolute));
         this.vehicleEntries.get(plate)!.addEntry(entry);
     }
 
@@ -43,7 +43,7 @@ export class VehicleEntry {
     }
 
     private addEntry(entry: DBPlateEntry) {
-        if (this.directionAbs !== entry.directionAbsolute) {
+        if (this.directionAbs !== entry.dirAbsolute) {
             this.save();
             VehicleEntry.addPlateEntry(entry);
         }
