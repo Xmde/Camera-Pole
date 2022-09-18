@@ -39,7 +39,7 @@ export default () => {
             plate,
             cameraNumber,
             direction,
-            directionAbsolute,
+            dirAbsolute: directionAbsolute,
             path: data,
             timestamp: date
         });
