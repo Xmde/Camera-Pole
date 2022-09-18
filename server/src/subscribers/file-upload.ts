@@ -23,7 +23,7 @@ export default () => {
         if (imageData.length != 4 || imageData[3] != 'BACKGROUND.jpg') return;
 
         const direction = imageData[0];
-        const directionAbsolute = ((direction === "FORWARD") && (cameraNumber % 2 === 0) || (direction === "REVERSE") && (cameraNumber % 2 !== 0)) ? "NORTH" : "SOUTH";
+        const directionAbsolute = ((direction === "FORWARD") && (cameraNumber % 2 === 0) || (direction === "REVERSE") && (cameraNumber % 2 !== 0)) ? "SOUTH" : "NORTH";
         const time = imageData[1];
         const plate = imageData[2];
 
