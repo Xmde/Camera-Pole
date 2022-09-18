@@ -13,9 +13,25 @@ export class VehicleEntry {
     private directionAbs: 'NORTH' | 'SOUTH';
 
     public static addPlateEntry(entry: DBPlateEntry) {
+        if (entry.plate === 'unknown') {
+            this.addVehicleEntrySingle(entry);
+            return;
+        }
         const plate = entry.plate;
         if (!this.vehicleEntries.has(plate)) this.vehicleEntries.set(plate, new VehicleEntry(plate, entry.timestamp, entry.directionAbsolute));
         this.vehicleEntries.get(plate)!.addEntry(entry);
+    }
+
+    public static async addVehicleEntrySingle(entry: DBPlateEntry) {
+        const VehicleEntrySchema = db.load('vehicle-entry');
+
+        const dbEntry = await VehicleEntrySchema.create({
+            timestamp: entry.timestamp,
+            plate: entry.plate,
+            entries: [entry]
+        });
+
+        dbEntry.save();
     }
 
     private constructor(plate: string, timestamp: Date, dirAbs: 'NORTH' | 'SOUTH') {
